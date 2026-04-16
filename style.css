@@ -1,19 +1,24 @@
 :root {
-    --bg-color: #0f172a;
-    --text-color: #f8fafc;
-    --text-muted: #94a3b8;
-    --glass-bg: rgba(30, 41, 59, 0.7);
-    --glass-bg-strong: rgba(30, 41, 59, 0.9);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --primary-color: #3b82f6;
-    --primary-hover: #2563eb;
+    --bg-color: #fff8f0;
+    --bg-wash: #fff1e2;
+    --text-color: #31405f;
+    --text-muted: #6f7a96;
+    --glass-bg: rgba(255, 255, 255, 0.84);
+    --glass-bg-strong: rgba(255, 255, 255, 0.95);
+    --glass-border: rgba(143, 170, 202, 0.28);
+    --primary-color: #ff8f6b;
+    --primary-hover: #ff7a52;
+    --soft-blue: #dff0ff;
+    --soft-peach: #ffe6d8;
+    --soft-yellow: #fff0be;
+    --soft-pink: #ffe0ef;
 
     /* 色分け */
-    --color-x2: #8b5cf6;      /* 紫: x² */
-    --color-x: #10b981;       /* 緑: x */
-    --color-const: #f59e0b;   /* 黄: 定数 */
-    --color-negative: #ef4444;/* 赤: 引き算 */
-    --color-chunk: #ec4899;   /* 桃: 塊 M */
+    --color-x2: #6f6ae8;      /* 青紫: x² */
+    --color-x: #43b883;       /* 緑: x */
+    --color-const: #f3a93b;   /* 黄: 定数 */
+    --color-negative: #f06b6b;/* 赤: 引き算 */
+    --color-chunk: #ef6aa8;   /* 桃: 塊 M */
 }
 
 * {
@@ -25,21 +30,28 @@
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
-    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     background-image:
-        radial-gradient(circle at top right, #1e1b4b, transparent 50%),
-        radial-gradient(circle at bottom left, #164e63, transparent 50%),
-        linear-gradient(var(--bg-color), var(--bg-color));
+        radial-gradient(circle at top right, rgba(255, 175, 122, 0.28), transparent 34%),
+        radial-gradient(circle at 12% 18%, rgba(125, 199, 255, 0.28), transparent 28%),
+        radial-gradient(circle at bottom left, rgba(255, 211, 125, 0.28), transparent 32%),
+        linear-gradient(180deg, var(--bg-wash), var(--bg-color) 28%, #fffdf9 100%);
     overflow-x: hidden;
 }
 
 .app-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1180px;
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+main {
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -48,22 +60,86 @@ body {
 /* ---------- ヘッダー ---------- */
 header {
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 247, 239, 0.95)),
+        rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(143, 170, 202, 0.22);
+    border-radius: 30px;
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+    box-shadow:
+        0 20px 45px rgba(255, 160, 116, 0.14),
+        0 10px 22px rgba(92, 126, 173, 0.08);
+}
+
+header::before,
+header::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+header::before {
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(125, 199, 255, 0.24), transparent 68%);
+    top: -72px;
+    left: -40px;
+}
+
+header::after {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(255, 175, 122, 0.22), transparent 68%);
+    right: -70px;
+    bottom: -120px;
 }
 
 h1 {
     font-size: clamp(1.75rem, 4vw, 2.75rem);
     font-weight: 800;
     margin-bottom: 0.5rem;
-    background: linear-gradient(to right, #60a5fa, #c084fc, #f472b6);
+    font-family: 'M PLUS Rounded 1c', 'Noto Sans JP', sans-serif;
+    background: linear-gradient(90deg, #405b8f, #ff8f6b 72%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.03em;
+    position: relative;
+    z-index: 1;
 }
 
 .subtitle {
     color: var(--text-muted);
-    margin-bottom: 2rem;
-    font-size: 1rem;
+    margin: 0 auto 1rem;
+    font-size: 1.03rem;
+    max-width: 680px;
+    position: relative;
+    z-index: 1;
+}
+
+.header-badges {
+    display: flex;
+    justify-content: center;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.header-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.48rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #5a6787;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(143, 170, 202, 0.24);
+    box-shadow: 0 8px 18px rgba(92, 126, 173, 0.08);
 }
 
 nav {
@@ -71,41 +147,47 @@ nav {
     justify-content: center;
     gap: 0.75rem;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
 }
 
 .nav-btn {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    color: var(--text-color);
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(143, 170, 202, 0.24);
+    color: #50607f;
     padding: 0.75rem 1.5rem;
     border-radius: 999px;
     cursor: pointer;
     font-size: 0.95rem;
     font-weight: 600;
     transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 18px rgba(92, 126, 173, 0.08);
     font-family: inherit;
 }
 
 .nav-btn:hover {
-    background: rgba(59, 130, 246, 0.2);
-    transform: translateY(-2px);
+    background: rgba(255, 239, 227, 0.96);
+    border-color: rgba(255, 143, 107, 0.38);
+    transform: translateY(-2px) scale(1.01);
 }
 
 .nav-btn.active {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5);
+    background: linear-gradient(135deg, var(--primary-color), #ffb188);
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 10px 22px rgba(255, 143, 107, 0.28);
 }
 
 /* ---------- 共通パネル ---------- */
 .glass-panel {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    border-radius: 16px;
+    border-radius: 24px;
     padding: clamp(1.5rem, 3vw, 2.5rem);
-    backdrop-filter: blur(16px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    box-shadow:
+        0 20px 40px rgba(92, 126, 173, 0.08),
+        0 8px 18px rgba(255, 171, 121, 0.08);
 }
 
 .mode-section {
@@ -128,6 +210,7 @@ h2 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
     font-weight: 700;
+    color: #40527b;
 }
 
 p {
@@ -155,15 +238,16 @@ strong {
 
 input[type="text"],
 input[type="number"] {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(143, 170, 202, 0.26);
+    border-radius: 16px;
     padding: 0.85rem 1.25rem;
-    color: white;
+    color: var(--text-color);
     font-size: 1.15rem;
     outline: none;
     transition: all 0.3s;
     font-family: inherit;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 
 input[type="text"] {
@@ -179,7 +263,7 @@ input[type="number"] {
 
 input:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 0 0 4px rgba(255, 143, 107, 0.16);
 }
 
 .param-label {
@@ -194,7 +278,7 @@ input:focus {
 .primary-btn,
 .secondary-btn {
     border: none;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 0.85rem 1.75rem;
     font-size: 1rem;
     font-weight: 700;
@@ -204,14 +288,15 @@ input:focus {
 }
 
 .primary-btn {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), #ffb188);
     color: white;
+    box-shadow: 0 10px 20px rgba(255, 143, 107, 0.22);
 }
 
 .primary-btn:hover {
-    background: var(--primary-hover);
+    background: linear-gradient(135deg, var(--primary-hover), #ffa277);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 12px 22px rgba(255, 143, 107, 0.28);
 }
 
 .primary-btn:disabled {
@@ -221,13 +306,14 @@ input:focus {
 }
 
 .secondary-btn {
-    background: rgba(255, 255, 255, 0.08);
-    color: var(--text-color);
-    border: 1px solid var(--glass-border);
+    background: rgba(234, 245, 255, 0.9);
+    color: #4f6289;
+    border: 1px solid rgba(143, 170, 202, 0.24);
+    box-shadow: 0 8px 18px rgba(92, 126, 173, 0.08);
 }
 
 .secondary-btn:hover:not(:disabled) {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(221, 239, 255, 1);
     transform: translateY(-2px);
 }
 
@@ -251,9 +337,9 @@ input:focus {
 }
 
 .preset-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    color: var(--text-color);
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(143, 170, 202, 0.22);
+    color: #53627f;
     padding: 0.4rem 0.9rem;
     border-radius: 999px;
     cursor: pointer;
@@ -263,8 +349,8 @@ input:focus {
 }
 
 .preset-btn:hover {
-    background: rgba(139, 92, 246, 0.2);
-    border-color: rgba(139, 92, 246, 0.4);
+    background: rgba(255, 239, 227, 0.96);
+    border-color: rgba(255, 143, 107, 0.34);
 }
 
 /* ---------- ビジュアライザー ---------- */
@@ -300,15 +386,16 @@ input:focus {
     gap: 0.75rem;
     padding: 0.9rem 1rem;
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(143, 170, 202, 0.18);
+    box-shadow: 0 10px 20px rgba(92, 126, 173, 0.06);
 }
 
 .map-number {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #60a5fa, #8b5cf6);
+    background: linear-gradient(135deg, #7dc7ff, #ff9f7a);
     color: white;
     display: inline-flex;
     align-items: center;
@@ -321,16 +408,17 @@ input:focus {
 .explanation-card,
 .strategy-note {
     width: 100%;
-    background: rgba(15, 23, 42, 0.45);
-    border: 1px solid rgba(148, 163, 184, 0.18);
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(143, 170, 202, 0.18);
     border-radius: 16px;
     padding: 1rem 1.1rem;
+    box-shadow: 0 10px 22px rgba(92, 126, 173, 0.05);
 }
 
 .concept-note {
     background:
-        linear-gradient(135deg, rgba(59, 130, 246, 0.14), rgba(16, 185, 129, 0.08)),
-        rgba(15, 23, 42, 0.5);
+        linear-gradient(135deg, rgba(125, 199, 255, 0.25), rgba(255, 230, 216, 0.62)),
+        rgba(255, 255, 255, 0.86);
 }
 
 .concept-note h3,
@@ -362,9 +450,10 @@ input:focus {
     gap: 0.45rem;
     padding: 0.4rem 0.8rem;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(143, 170, 202, 0.16);
     font-size: 0.88rem;
+    color: #5f6d8c;
 }
 
 .legend-dot {
@@ -396,7 +485,7 @@ input:focus {
 
 .product-row,
 .math-step {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.82);
     border-radius: 12px;
     padding: 0.85rem 0.95rem;
     border-left: 4px solid var(--row-accent, var(--primary-color));
@@ -405,12 +494,12 @@ input:focus {
 
 .product-row.active {
     transform: translateX(4px);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.28);
-    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 14px 24px rgba(92, 126, 173, 0.12);
+    background: rgba(255, 250, 244, 0.96);
 }
 
 .product-row.negative {
-    background: rgba(127, 29, 29, 0.22);
+    background: rgba(255, 235, 235, 0.92);
 }
 
 .product-expression,
@@ -439,8 +528,8 @@ input:focus {
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background: rgba(59, 130, 246, 0.18);
-    color: #bfdbfe;
+    background: rgba(125, 199, 255, 0.22);
+    color: #4f6289;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -450,8 +539,8 @@ input:focus {
 .strategy-note {
     margin-top: 1.25rem;
     background:
-        linear-gradient(135deg, rgba(236, 72, 153, 0.08), rgba(59, 130, 246, 0.08)),
-        rgba(15, 23, 42, 0.45);
+        linear-gradient(135deg, rgba(255, 224, 239, 0.76), rgba(223, 240, 255, 0.76)),
+        rgba(255, 255, 255, 0.86);
 }
 
 .strategy-note ul {
@@ -477,7 +566,7 @@ input:focus {
 }
 
 .formula-key {
-    color: #bfdbfe;
+    color: #4d628f;
     font-weight: 700;
 }
 
@@ -512,9 +601,9 @@ input:focus {
 }
 
 .label-text {
-    font-family: 'Inter', sans-serif;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
     font-weight: 600;
-    fill: rgba(255, 255, 255, 0.85);
+    fill: rgba(74, 92, 125, 0.92);
     text-anchor: middle;
     dominant-baseline: middle;
     opacity: 0;
@@ -527,11 +616,13 @@ input:focus {
     font-weight: 700;
     opacity: 0;
     animation: textFadeIn 0.8s 0.6s forwards;
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba(255, 255, 255, 0.84);
     padding: 1rem 1.5rem;
-    border-radius: 12px;
+    border-radius: 18px;
     width: 100%;
     word-break: break-word;
+    border: 1px solid rgba(143, 170, 202, 0.18);
+    box-shadow: 0 12px 24px rgba(92, 126, 173, 0.08);
 }
 
 .result-div .op {
@@ -554,9 +645,9 @@ input:focus {
 
 .formula-tab,
 .problem-tab {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--glass-border);
-    color: var(--text-color);
+    background: rgba(255, 255, 255, 0.84);
+    border: 1px solid rgba(143, 170, 202, 0.18);
+    color: #556582;
     padding: 0.6rem 1.2rem;
     border-radius: 10px;
     cursor: pointer;
@@ -568,14 +659,15 @@ input:focus {
 
 .formula-tab:hover,
 .problem-tab:hover {
-    background: rgba(139, 92, 246, 0.15);
+    background: rgba(255, 239, 227, 0.92);
 }
 
 .formula-tab.active,
 .problem-tab.active {
-    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    background: linear-gradient(135deg, #7dc7ff, #ff9f7a);
     border-color: transparent;
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+    color: white;
+    box-shadow: 0 8px 16px rgba(255, 159, 122, 0.2);
 }
 
 .step-list {
@@ -586,7 +678,7 @@ input:focus {
 }
 
 .step-item {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.82);
     border-left: 3px solid var(--color-x2);
     padding: 0.75rem 1rem;
     border-radius: 8px;
@@ -702,11 +794,16 @@ input:focus {
     font-weight: 800;
     text-align: center;
     padding: 1.5rem 1rem;
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 12px;
+    background:
+        linear-gradient(135deg, rgba(255, 240, 190, 0.76), rgba(223, 240, 255, 0.72)),
+        rgba(255, 255, 255, 0.88);
+    border-radius: 20px;
     width: 100%;
     word-break: break-word;
     letter-spacing: 0.02em;
+    color: #40527b;
+    border: 1px solid rgba(143, 170, 202, 0.18);
+    box-shadow: 0 12px 24px rgba(92, 126, 173, 0.08);
 }
 
 .quiz-input-row {
@@ -748,8 +845,8 @@ input:focus {
     opacity: 1;
     transform: translateY(0);
     padding: 0.9rem 1rem;
-    border: 1px solid rgba(245, 158, 11, 0.35);
-    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(243, 169, 59, 0.34);
+    background: rgba(255, 240, 190, 0.52);
     pointer-events: auto;
 }
 
@@ -765,16 +862,16 @@ input:focus {
 }
 
 .quiz-feedback.correct {
-    background: rgba(16, 185, 129, 0.15);
+    background: rgba(67, 184, 131, 0.12);
     color: var(--color-x);
-    border: 1px solid rgba(16, 185, 129, 0.4);
+    border: 1px solid rgba(67, 184, 131, 0.28);
     animation: pop 0.4s ease-out;
 }
 
 .quiz-feedback.wrong {
-    background: rgba(239, 68, 68, 0.15);
+    background: rgba(240, 107, 107, 0.12);
     color: var(--color-negative);
-    border: 1px solid rgba(239, 68, 68, 0.4);
+    border: 1px solid rgba(240, 107, 107, 0.26);
     animation: shake 0.4s ease-out;
 }
 
@@ -782,7 +879,7 @@ input:focus {
     display: block;
     margin-top: 0.4rem;
     font-size: 0.95rem;
-    color: var(--text-muted);
+    color: #65738f;
     font-weight: 500;
 }
 
@@ -791,11 +888,11 @@ input:focus {
     font-family: 'Inter', monospace;
 }
 code {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(223, 240, 255, 0.8);
     padding: 0.1em 0.4em;
     border-radius: 4px;
     font-size: 0.9em;
-    color: var(--color-x);
+    color: #4f6289;
 }
 
 @keyframes pop {
@@ -824,7 +921,7 @@ footer {
 
 .footer-text {
     color: var(--text-muted);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
 }
 
 /* ---------- レスポンシブ ---------- */
