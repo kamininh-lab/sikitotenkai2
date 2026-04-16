@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>式と展開 ビジュアル学習アプリ</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>式と展開 ビジュアル学習</h1>
+            <p class="subtitle">高校1年生の数学「式の展開」を図とアニメーションで直感的に理解しよう</p>
+            <nav>
+                <button class="nav-btn active" data-mode="area">① 面積モデル</button>
+                <button class="nav-btn" data-mode="formula">② 公式ビジュアライザー</button>
+                <button class="nav-btn" data-mode="chunk">③ 構造把握 (塊)</button>
+                <button class="nav-btn" data-mode="quiz">④ 練習問題</button>
+            </nav>
+        </header>
+
+        <main>
+            <!-- ============ ① 面積モデル ============ -->
+            <section id="area-mode" class="mode-section active">
+                <div class="input-panel glass-panel">
+                    <h2>(x + a)(x + b) の展開</h2>
+                    <p>長方形を 4 つの部分に分けて読むと、<strong>どの項がどこから出てくるか</strong>まで確認できます。</p>
+                    <div class="input-group">
+                        <input type="text" id="expression-input" placeholder="例: (x+3)(x+4)" value="(x+3)(x+4)">
+                        <button id="generate-btn" class="primary-btn">図を生成</button>
+                    </div>
+                    <div class="preset-row">
+                        <span class="preset-label">例題：</span>
+                        <button class="preset-btn" data-expr="(x+3)(x+4)">(x+3)(x+4)</button>
+                        <button class="preset-btn" data-expr="(x+5)(x+2)">(x+5)(x+2)</button>
+                        <button class="preset-btn" data-expr="(x-3)(x+4)">(x-3)(x+4)</button>
+                        <button class="preset-btn" data-expr="(x-2)(x-5)">(x-2)(x-5)</button>
+                    </div>
+                </div>
+
+                <div class="visualizer-panel glass-panel">
+                    <div class="learning-map">
+                        <div class="map-step"><span class="map-number">1</span><span>4つの長方形に分ける</span></div>
+                        <div class="map-step"><span class="map-number">2</span><span>それぞれの面積を読む</span></div>
+                        <div class="map-step"><span class="map-number">3</span><span>同類項をまとめる</span></div>
+                    </div>
+                    <div class="concept-note" id="area-guide"></div>
+                    <div class="svg-container" id="svg-container"></div>
+                    <div class="explanation-grid">
+                        <div class="explanation-card" id="area-products"></div>
+                        <div class="explanation-card" id="area-steps"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ ② 公式ビジュアライザー ============ -->
+            <section id="formula-mode" class="mode-section">
+                <div class="input-panel glass-panel">
+                    <h2>乗法公式ビジュアライザー</h2>
+                    <p>a と b の値を変えながら、公式が「なぜそうなるのか」を面積図で確認しましょう。</p>
+                    <div class="formula-tabs">
+                        <button class="formula-tab active" data-formula="sqPlus">(a + b)²</button>
+                        <button class="formula-tab" data-formula="sqMinus">(a − b)²</button>
+                        <button class="formula-tab" data-formula="diff">(a + b)(a − b)</button>
+                    </div>
+                    <div class="input-group compact">
+                        <label class="param-label">a = <input type="number" id="param-a" value="3" min="1" max="9"></label>
+                        <label class="param-label">b = <input type="number" id="param-b" value="2" min="1" max="9"></label>
+                    </div>
+                </div>
+
+                <div class="visualizer-panel glass-panel">
+                    <div class="formula-display" id="formula-display"></div>
+                    <div class="concept-note" id="formula-insight"></div>
+                    <div class="svg-container" id="formula-svg-container"></div>
+                    <div class="step-list" id="formula-steps"></div>
+                </div>
+            </section>
+
+            <!-- ============ ③ 構造把握 (塊) ============ -->
+            <section id="chunk-mode" class="mode-section">
+                <div class="input-panel glass-panel">
+                    <h2>構造把握：共通部分を「塊」として見る</h2>
+                    <p>複雑そうな式も、同じ部分を文字 <strong>M</strong> で置き換えると、見慣れた形に変身します。</p>
+                    <div class="problem-tabs" id="chunk-tabs"></div>
+                    <div class="strategy-note">
+                        <h3>見抜くコツ</h3>
+                        <ul>
+                            <li>両方のかっこに同じ並びがないか探す</li>
+                            <li>その部分を <strong>M</strong> とおいて、形をシンプルにする</li>
+                            <li>見慣れた公式や <strong>(M+a)(M+b)</strong> の形で考える</li>
+                            <li>最後に <strong>M</strong> を元の式に戻す</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="visualizer-panel glass-panel">
+                    <div class="concept-note" id="chunk-pattern"></div>
+                    <div class="chunk-stage" id="chunk-stage"></div>
+                    <div class="chunk-controls">
+                        <button id="chunk-prev" class="secondary-btn">← 前へ</button>
+                        <span class="step-indicator" id="chunk-step-indicator">Step 1 / 4</span>
+                        <button id="chunk-next" class="primary-btn">次へ →</button>
+                    </div>
+                </div>
+            </section>
+            <!-- ============ ④ 練習問題 ============ -->
+            <section id="quiz-mode" class="mode-section">
+                <div class="input-panel glass-panel">
+                    <h2>練習問題で力試し</h2>
+                    <p>展開した式を入力してチェック！ <strong>x²</strong> は <code>x^2</code>、係数のないものは <code>x</code> でも <code>1x</code> でも OK。</p>
+                    <div class="quiz-stats">
+                        <span class="stat-chip">正解 <strong id="quiz-correct">0</strong></span>
+                        <span class="stat-chip">挑戦 <strong id="quiz-total">0</strong></span>
+                        <span class="stat-chip">連続正解 <strong id="quiz-streak">0</strong> 🔥</span>
+                    </div>
+                </div>
+
+                <div class="visualizer-panel glass-panel">
+                    <div class="concept-note" id="quiz-strategy"></div>
+                    <div class="quiz-question" id="quiz-question">問題を生成中…</div>
+                    <div class="quiz-input-row">
+                        <input type="text" id="quiz-answer" placeholder="例: x^2 + 7x + 12" autocomplete="off">
+                        <button id="quiz-check" class="primary-btn">判定</button>
+                    </div>
+                    <div class="quiz-actions">
+                        <button id="quiz-hint" class="secondary-btn">ヒントを見る</button>
+                        <button id="quiz-next" class="secondary-btn">次の問題 →</button>
+                    </div>
+                    <div class="quiz-hint" id="quiz-hint-box"></div>
+                    <div class="quiz-feedback" id="quiz-feedback"></div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p class="footer-text">式の展開を「見て分かる」ための学習ツール</p>
+        </footer>
+    </div>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
